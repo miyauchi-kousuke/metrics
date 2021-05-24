@@ -1,6 +1,9 @@
 # metrics
 
+web
 http://vue-metrics.s3-website-ap-northeast-1.amazonaws.com/
+api
+https://u9ozoz6muk.execute-api.ap-northeast-1.amazonaws.com/Prod?start=-PT1H&end=P0D&type=All
 
 - この機能はなんなのでしょうか？
 
@@ -22,3 +25,14 @@ http://vue-metrics.s3-website-ap-northeast-1.amazonaws.com/
   - s3の静的コンテンツにvuejsのサイト
   - ApiGateWay経由でLambdaの起動
   - Lambda内部でDescribeStackとMetricWidgetImageを使ってデータを返す
+
+  - DescribeStackで取っているので、何も設定しなくてもそれらしきコンポーネントのメトリクス が取れる
+
+- やりたいこと
+  - 取れるメトリクスの数を増やす
+  - Container Insights の情報をとる(多分取れる)
+  - APIの速度を速くする(キャッシュする)
+
+- locust
+  - 負荷試験をするために、リクエストを飛ばすツール。
+  -  
