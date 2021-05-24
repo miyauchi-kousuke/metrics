@@ -37,13 +37,18 @@
 			<h5 class="text-center">Filter by Category</h5>
 			<form>
 				<div class="row">
-					<div class="large-6 columns">
+					<div class="large-2 columns">
 						<select v-model="section">
 							<option v-for="section in sections" :value="section">{{ section }}</option>
 						</select>
 					</div>
+					<div class="large-2 columns">
+						<select v-model="type">
+							<option v-for="type in types" :value="type">{{ type }}</option>
+						</select>
+					</div>
 					<div class="medium-6 columns">
-						<a @click="getPosts(section)" class="button expanded">実行</a>
+						<a @click="getPosts(section,type)" class="button expanded">実行</a>
 					</div>
 				</div>
 			</form>

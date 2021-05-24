@@ -2,9 +2,10 @@
 
 const BaseUrl = "https://u9ozoz6muk.execute-api.ap-northeast-1.amazonaws.com/Prod";
 const ApiKey = config.KEY;
-const SECTIONS = "1H, 3H, 12H"; // From NYTimes
+const SECTIONS = "1H, 3H, 12H";
+const TYPES = "All, Lambda, RDS, CloudFront";
 
-function buildUrl (section) {
+function buildUrl (section,type) {
     //return BaseUrl + url + ".json?api-key=" + ApiKey;
   let start = "-PT1H"
   let end = "P0D"
@@ -15,7 +16,7 @@ function buildUrl (section) {
   }else if (section === "12H"){
     start = "-PT12H"
   }
-  return BaseUrl + "?start=" + start + "&end=" + "P0D";
+  return BaseUrl + "?start=" + start + "&end=" + "P0D" + "&type=" + type;
 }
 
 Vue.component('met-list', {
@@ -26,7 +27,7 @@ Vue.component('met-list', {
         <div class="columns large-6 medium-6" v-for="post in posts">
           <div class="card">
           <div class="card-divider">
-          {{ post.StackName }}
+          {{ post.Type }}の{{ post.Metrics }}
           </div>
            <a :href="post.url" target="_blank">
           <img :src="post.image_url"></a>
@@ -82,16 +83,18 @@ const vm = new Vue({
     results: [],
     sections: SECTIONS.split(', '), // create an array of the sections
     section: '1H', // set default section to '1H'
+    types: TYPES.split(', '), // create an array of the types
+    type: 'All', // set default section to '1H'
     loading: true,
     title: ''
   },
   mounted () {
-    this.getPosts('1H');
+    this.getPosts('1H','All');
   },
   methods: {
-    getPosts(section) {
+    getPosts(section,type) {
       this.loading = true;
-      let url = buildUrl(section);
+      let url = buildUrl(section,type);
       axios.get(url).then((response) => {
         this.loading = false;
         this.results = response.data.results;

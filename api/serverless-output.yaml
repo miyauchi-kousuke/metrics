@@ -7,7 +7,7 @@ Resources:
     Properties:
       Handler: index.lambda_handler
       Runtime: python3.6
-      CodeUri: s3://aws-sam-example/9eab5f32c1c8e041d85f92ed8d616432
+      CodeUri: s3://aws-sam-example/69aa557e727252c92f44fa9be6e9657b
       Timeout: 900
       Tracing: Active
       Policies:
