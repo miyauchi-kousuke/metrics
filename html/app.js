@@ -48,7 +48,8 @@ Vue.component('met-list', {
         // let imgObj = post.multimedia.find(media => media.format === "superJumbo");
         // post.image_url = imgObj ? imgObj.url : "http://placehold.it/300x200?text=N/A";
         let imgObj = post.Image;
-        post.url = "https://ap-northeast-1.console.aws.amazon.com/cloudformation/home?region=ap-northeast-1#/stacks/stackinfo?stackId={}&filteringStatus=active&filteringText=&viewNested=true&hideStacks=false"
+        // post.url = "https://ap-northeast-1.console.aws.amazon.com/cloudformation/home?region=ap-northeast-1#/stacks/stackinfo?stackId={}&filteringStatus=active&filteringText=&viewNested=true&hideStacks=false"
+        post.url = "https://ap-northeast-1.console.aws.amazon.com/cloudwatch/home?region=ap-northeast-1#metricsV2:graph=~(metrics~(~(~'AWS*2f"+post.Type+"~'"+post.Metrics+"~'FunctionName~'"+"hogefuga-stack-PutFunction-ycdtu0VfJGpY"+"~(stat~'Sum~id~'m0)))~legend~(position~'bottom)~period~300~view~'timeSeries~stacked~false~start~'"+post.start+"~end~'"+post.end+"~region~'ap-northeast-1)"
         post.image_url = "data:image/png;base64,"+imgObj;
 
         Base64ToImage(imgObj, function(img) {

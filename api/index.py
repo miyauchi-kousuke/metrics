@@ -145,6 +145,8 @@ def lambda_handler(event, context):
                     'Image': image["image"],
                     'Type': "Lambda",
                     'Metrics': "Invocations",
+                    "start": start,
+                    "end": end,
                 })
                 image = cloud_watch("Lambda", "Duration", resource["PhysicalResourceId"])
                 result.append({
@@ -153,12 +155,11 @@ def lambda_handler(event, context):
                     'Image': image["image"],
                     'Type': "Lambda",
                     'Metrics': "Duration",
-
+                    "start": start,
+                    "end": end,
                 })
 
     response = {
-        "start": start,
-        "end": end,
         "num_results": len(result),
         "results": result,
         "resource_list": resource_list
