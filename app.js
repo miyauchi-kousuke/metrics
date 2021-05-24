@@ -1,26 +1,37 @@
 "use strict";
 
-const NYTBaseUrl = "https://api.nytimes.com/svc/topstories/v2/";
+const BaseUrl = "https://u9ozoz6muk.execute-api.ap-northeast-1.amazonaws.com/Prod";
 const ApiKey = config.KEY;
-const SECTIONS = "home, arts, automobiles, books, business, fashion, food, health, insider, magazine, movies, national, nyregion, obituaries, opinion, politics, realestate, science, sports, sundayreview, technology, theater, tmagazine, travel, upshot, world"; // From NYTimes
+const SECTIONS = "1H, 3H, 12H"; // From NYTimes
 
-function buildUrl (url) {
-    return NYTBaseUrl + url + ".json?api-key=" + ApiKey;
+function buildUrl (section) {
+    //return BaseUrl + url + ".json?api-key=" + ApiKey;
+  let start = "-PT1H"
+  let end = "P0D"
+  if (section === "1H"){
+    start = "-PT1H"
+  }else if (section === "3H"){
+    start = "-PT3H"
+  }else if (section === "12H"){
+    start = "-PT12H"
+  }
+  return BaseUrl + "?start=" + start + "&end=" + "P0D";
 }
 
-Vue.component('news-list', {
+Vue.component('met-list', {
   props: ['results'],
   template: `
     <section>
       <div class="row" v-for="posts in processedPosts">
-        <div class="columns large-3 medium-6" v-for="post in posts">
+        <div class="columns large-6 medium-6" v-for="post in posts">
           <div class="card">
           <div class="card-divider">
-          {{ post.title }}
+          {{ post.StackName }}
           </div>
-          <a :href="post.url" target="_blank"><img :src="post.image_url"></a>
+           <a :href="post.url" target="_blank">
+          <img :src="post.image_url"></a>
           <div class="card-section">
-            <p>{{ post.abstract }}</p>
+            <p>{{ post.Resources }}</p>
           </div>
         </div>
         </div>
@@ -33,8 +44,18 @@ Vue.component('news-list', {
 
       // Add image_url attribute
       posts.map(post => {
-        let imgObj = post.multimedia.find(media => media.format === "superJumbo");
-        post.image_url = imgObj ? imgObj.url : "http://placehold.it/300x200?text=N/A";
+        // let imgObj = post.multimedia.find(media => media.format === "superJumbo");
+        // post.image_url = imgObj ? imgObj.url : "http://placehold.it/300x200?text=N/A";
+        let imgObj = post.Image;
+        post.url = "https://ap-northeast-1.console.aws.amazon.com/cloudformation/home?region=ap-northeast-1#/stacks/stackinfo?stackId={}&filteringStatus=active&filteringText=&viewNested=true&hideStacks=false"
+        post.image_url = "data:image/png;base64,"+imgObj;
+
+        Base64ToImage(imgObj, function(img) {
+          // <img>要素にすることで幅・高さがわかります
+          alert("w=" + img.width + " h=" + img.height);
+          // <img>要素としてDOMに追加
+          document.getElementById('main').appendChild(img);
+        });
       });
 
       // Put Array into Chunks
@@ -47,25 +68,34 @@ Vue.component('news-list', {
   }
 });
 
+function Base64ToImage(base64img, callback) {
+  var img = new Image();
+  img.onload = function() {
+    callback(img);
+  };
+  img.src = base64img;
+}
+
 const vm = new Vue({
   el: '#app',
   data: {
     results: [],
     sections: SECTIONS.split(', '), // create an array of the sections
-    section: 'home', // set default section to 'home'
+    section: '1H', // set default section to '1H'
     loading: true,
     title: ''
   },
   mounted () {
-    this.getPosts('home');
+    this.getPosts('1H');
   },
   methods: {
     getPosts(section) {
+      this.loading = true;
       let url = buildUrl(section);
       axios.get(url).then((response) => {
         this.loading = false;
         this.results = response.data.results;
-        let title = this.section !== 'home' ? "Top stories in '"+ this.section + "' today" : "Top stories today";
+        let title = this.section !== '1H' ? "Metrics in '"+ this.section + "" : "Metrics";
         this.title = title + "(" + response.data.num_results+ ")";
       }).catch((error) => { console.log(error); });
     }

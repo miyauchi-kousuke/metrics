@@ -52,7 +52,7 @@
 		<h5 class="text-center uppercase" v-if="!loading">{{ title }}</b></h5>
 		<div v-if="loading" class="loader"><img src="http://cdnjs.cloudflare.com/ajax/libs/semantic-ui/0.16.1/images/loader-large.gif" alt="loader"></div>
 
-		<news-list v-if="!loading" :results="results"></news-list>
+		<met-list v-if="!loading" :results="results"></met-list>
 	</div>
 	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 	<script src="https://unpkg.com/vue"></script>
