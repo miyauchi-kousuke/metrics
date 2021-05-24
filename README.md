@@ -20,7 +20,7 @@ https://u9ozoz6muk.execute-api.ap-northeast-1.amazonaws.com/Prod?start=-PT1H&end
 
 - 様式
 
-  ![image](https://user-images.githubusercontent.com/54279162/119360810-f8a49380-bce5-11eb-9b93-60e1c780c6e9.png)
+  ![image](https://user-images.githubusercontent.com/54279162/119382731-68724880-bcfd-11eb-90db-48d056b9d3f0.png)
 
   - s3の静的コンテンツにvuejsのサイト
   - ApiGateWay経由でLambdaの起動
