@@ -1,0 +1,4 @@
+export STACK_NAME=hogefuga
+export S3BUCKET_NAME=aws-sam-example
+aws cloudformation package --template-file template.yaml --output-template-file serverless-output.yaml --s3-bucket ${S3BUCKET_NAME}
+aws cloudformation deploy  --template-file serverless-output.yaml --stack-name ${STACK_NAME}-stack --capabilities CAPABILITY_IAM --parameter StackName=${STACK_NAME} --capabilities CAPABILITY_IAM

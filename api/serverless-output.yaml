@@ -1,0 +1,30 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: api
+Resources:
+  PutFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: index.lambda_handler
+      Runtime: python3.6
+      CodeUri: s3://aws-sam-example/9eab5f32c1c8e041d85f92ed8d616432
+      Timeout: 900
+      Tracing: Active
+      Policies:
+      - AmazonDynamoDBFullAccess
+      - AWSCloudFormationFullAccess
+      - CloudWatchFullAccess
+      MemorySize: 128
+      Events:
+        GetAllResource:
+          Type: Api
+          Properties:
+            Path: /
+            Method: get
+            RequestParameters:
+            - method.request.querystring.start:
+                Required: true
+                Caching: true
+            - method.request.querystring.end:
+                Required: true
+                Caching: true
