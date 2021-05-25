@@ -63,7 +63,7 @@ https://u9ozoz6muk.execute-api.ap-northeast-1.amazonaws.com/Prod?start=-PT1H&end
 - 今後について
   - さいとう君みたいにおしゃれなFrontを自在に操ってみたい
   - たかし君、まるさんに連絡がつかなくてもAWSの問題を解決してみたい
-
+  - 営業が得意ではないので、別の方法でなんとか社外影響力をだしたい
 
 
 
