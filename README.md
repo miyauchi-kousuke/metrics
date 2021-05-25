@@ -55,6 +55,7 @@ https://u9ozoz6muk.execute-api.ap-northeast-1.amazonaws.com/Prod?start=-PT1H&end
   - APIの速度を速くする(キャッシュする)
 
 - 思ったこと
+  - あまりやりすぎず、slackにメトリクス画像付きでアップするくらいがちょうどいいのでは
   - CloudWatchのダッシュボードでよくない？
   - SUPINFのCfに組み込んでいくのであれば、CloudWatchのダッシュボードを使うのがスマートな気がしました。
   - CloudFormationのアウトプットから、よく使うコンポーネントのよく使うメトリクスを拾って予めダッシュボードを作るCFを作っちゃう
